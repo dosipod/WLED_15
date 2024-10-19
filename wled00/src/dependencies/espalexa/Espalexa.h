@@ -202,12 +202,12 @@ private:
   {
     EA_DEBUGLN("Not-Found HTTP call:");
     #ifndef ESPALEXA_ASYNC
-    EA_DEBUGLN("URI: " + server->uri());
-    EA_DEBUGLN("Body: " + server->arg(0));
+    EA_DEBUGLN("URIx: " + server->uri());
+    EA_DEBUGLN("Bodyx: " + server->arg(0));
     if(!handleAlexaApiCall(server->uri(), server->arg(0)))
     #else
-    EA_DEBUGLN("URI: " + server->url());
-    EA_DEBUGLN("Body: " + body);
+    EA_DEBUGLN("URIy: " + server->url());
+    EA_DEBUGLN("Bodyy: " + body);
     if(!handleAlexaApiCall(server))
     #endif
       server->send(404, "text/plain", "Not Found (espalexa)");
@@ -261,7 +261,7 @@ private:
       b[len] = 0;
       memcpy(b, data, len);
       body = b; //save the body so we can use it for the API call
-      EA_DEBUG("Received body: ");
+      EA_DEBUG("Received bodyz: ");
       EA_DEBUGLN(body);
     });
     #ifndef ESPALEXA_NO_SUBPAGE
@@ -466,7 +466,7 @@ public:
       EA_DEBUG("BodyMethod2");
       body = request->getParam("body", true)->value();
     }
-    EA_DEBUG("FinalBody: ");
+    EA_DEBUG("FinalBodyv: ");
     EA_DEBUGLN(body);
   #else
   bool handleAlexaApiCall(String req, String body)
@@ -482,7 +482,7 @@ public:
     {
       EA_DEBUGLN("devType");
       body = "";
-      server->send(200, "application/json", F("[{\"success\":{\"username\":\"2BLEDHardQrI3WHYTHoMcXHgEspsM8ZZRpSKtBGr\"}}]"));
+      server->send(200, "application/json", F("[{\"success\":{\"username\":\"2BQrI3WHYTHoMcXHgEspsM8ZZRpSKtBGr\"}}]"));
       return true;
     }
 
