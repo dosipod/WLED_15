@@ -14,8 +14,10 @@
 #pragma once
 
 #include "wled.h"
-#include <TFT_eSPI.h>
 #include <SPI.h>
+#include <TFT_eSPI.h>
+#include "WiFi.h"
+#include <Wire.h>
 
 #define ADC_EN 14  // Used for enabling battery voltage measurements - not used in this program
 // #define measureRenderTime
