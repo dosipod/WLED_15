@@ -310,8 +310,9 @@
 #define FX_MODE_WIPE_IN_FAST           191
 #define FX_MODE_WIPE_IN_FASTER         192
 #define FX_MODE_WIPE_IN_VERY_FAST      193
+#define FX_MODE_PROGRESSBAR            194
 
-#define MODE_COUNT                     193
+#define MODE_COUNT                     194
 
 
 
