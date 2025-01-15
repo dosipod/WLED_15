@@ -389,7 +389,7 @@ uint16_t mode_progressbar(void) {
    unsigned active_leds = percent;
 
   unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
-  if (SEGMENT.speed == 255) size = 255;
+  if (SEGMENT.speed == 512) size = 512;
 
   if (percent <= 512) {
     for (unsigned i = 0; i < SEGLEN; i++) {
@@ -410,7 +410,7 @@ uint16_t mode_progressbar(void) {
     	}
     	else {
         if (SEGMENT.check1)
-          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,100,200,255,0), false, false, 0));
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,100,200,512,0), false, false, 0));
         else
           SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
     	}
