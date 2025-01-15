@@ -8154,9 +8154,10 @@ void WS2812FX::setupEffectData() {
   addEffect(FX_MODE_BLENDS, &mode_blends, _data_FX_MODE_BLENDS);
   addEffect(FX_MODE_TV_SIMULATOR, &mode_tv_simulator, _data_FX_MODE_TV_SIMULATOR);
   addEffect(FX_MODE_DYNAMIC_SMOOTH, &mode_dynamic_smooth, _data_FX_MODE_DYNAMIC_SMOOTH);
+  /// ALDIY HACKED FX LIST 
   addEffect(FX_MODE_WAVE, &mode_wave, _data_FX_MODE_WAVE);
   addEffect(FX_MODE_SPIRAL, &mode_spiral, _data_FX_MODE_SPIRAL);
-  addEffect(FX_MODE_SPIRAL, &mode_Progressbar, _data_FX_MODE_PROGRESSBAR);
+  addEffect(FX_MODE_PROGRESSBAR, &mode_Progressbar, _data_FX_MODE_PROGRESSBAR);
 
   
   // --- 1D audio effects ---
