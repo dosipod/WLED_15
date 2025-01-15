@@ -376,6 +376,60 @@ uint16_t mode_spiral(void) {
 }
 static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@,% of fill,,,,One color;!,!;!";
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Aldiy mode_progressbar  for testing other effects , ignore name 
+*
+*/ 
+
+
+uint16_t mode_progressbar(void) {
+  
+   unsigned percent = SEGMENT.intensity;
+   unsigned active_leds = percent;
+
+  unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
+  if (SEGMENT.speed == 255) size = 255;
+
+  if (percent <= 512) {
+    for (unsigned i = 0; i < SEGLEN; i++) {
+    	if (i < SEGENV.aux1) {
+        if (SEGMENT.check1)
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,0,100,0,255), false, false, 0));
+        else
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
+    	                    }
+    	else {
+        SEGMENT.setPixelColor(i, SEGCOLOR(1));
+    	}
+    }
+  } else {
+    for (unsigned i = 0; i < SEGLEN; i++) {
+    	if (i < (SEGLEN - SEGENV.aux1)) {
+        SEGMENT.setPixelColor(i, SEGCOLOR(1));
+    	}
+    	else {
+        if (SEGMENT.check1)
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,100,200,255,0), false, false, 0));
+        else
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
+    	}
+    }
+  }
+
+  if(active_leds > SEGENV.aux1) {  // smooth transition to the target value
+    SEGENV.aux1 += size;
+    if (SEGENV.aux1 > active_leds) SEGENV.aux1 = active_leds;
+  } else if (active_leds < SEGENV.aux1) {
+    if (SEGENV.aux1 > size) SEGENV.aux1 -= size; else SEGENV.aux1 = 0;
+    if (SEGENV.aux1 < active_leds) SEGENV.aux1 = active_leds;
+  }
+
+ 	return FRAMETIME;
+}
+static const char _data_FX_MODE_PROGRESSBAR[] PROGMEM = "Progress bar@,% of fill,,,,One color;!,!;!";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////
 // *    WIPE OUT    //
@@ -8102,6 +8156,7 @@ void WS2812FX::setupEffectData() {
   addEffect(FX_MODE_DYNAMIC_SMOOTH, &mode_dynamic_smooth, _data_FX_MODE_DYNAMIC_SMOOTH);
   addEffect(FX_MODE_WAVE, &mode_wave, _data_FX_MODE_WAVE);
   addEffect(FX_MODE_SPIRAL, &mode_spiral, _data_FX_MODE_SPIRAL);
+  addEffect(FX_MODE_SPIRAL, &mode_Progressbar, _data_FX_MODE_PROGRESSBAR);
 
   
   // --- 1D audio effects ---
