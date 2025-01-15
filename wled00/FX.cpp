@@ -333,9 +333,7 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 uint16_t mode_spiral(void) {
   
    unsigned percent = SEGMENT.intensity;
-  percent = constrain(percent, 0, 200);
-  unsigned active_leds = (percent < 100) ? roundf(SEGLEN * percent / 100.0f)
-                                         : roundf(SEGLEN * (200 - percent) / 100.0f);
+   unsigned active_leds = percent;
 
   unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
   if (SEGMENT.speed == 255) size = 255;
@@ -376,7 +374,7 @@ uint16_t mode_spiral(void) {
 
  	return FRAMETIME;
 }
-static const char _data_FX_MODE_PERCENT[] PROGMEM = "SpiralDos@,% of fill,,,,One color;!,!;!";
+static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@,% of fill,,,,One color;!,!;!";
 
 
 //////////////////////
