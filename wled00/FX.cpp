@@ -334,7 +334,7 @@ uint16_t mode_spiral(void) {
   
   unsigned percent = SEGMENT.intensity;
   percent = constrain(percent, 0, 200);
-  unsigned active_leds = percent ;
+  unsigned active_leds = percent;
                                        
 
   unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
