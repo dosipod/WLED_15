@@ -332,36 +332,52 @@ static const char _data_FX_MODE_WAVE[] PROGMEM = "Wave@!,!;;!";
 
 uint16_t mode_spiral(void) {
   
-    if (!strip.isMatrix || !SEGMENT.is2D()) return mode_static(); // not a 2D set-up
-  const int cols = SEGMENT.virtualWidth();
-  const int rows = SEGMENT.virtualHeight();
-  int x, y;
+   unsigned percent = SEGMENT.intensity;
+  percent = constrain(percent, 0, 200);
+  unsigned active_leds = (percent < 100) ? roundf(SEGLEN * percent / 100.0f)
+                                         : roundf(SEGLEN * (200 - percent) / 100.0f);
 
-  SEGMENT.fadeToBlackBy(16 + (SEGMENT.speed >> 3)); // create fading trails
-  unsigned long t = strip.now / 128; // timebase
+  unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
+  if (SEGMENT.speed == 255) size = 255;
 
-  // protons (outer circle)
-  for (size_t i = 0; i < 8; i++) {
-    x = beatsin8(SEGMENT.custom1 >> 3, 0, cols - 1, 0, ((i % 2) ? 128 : 0) + t * i);
-    y = beatsin8(SEGMENT.intensity >> 3, 0, rows - 1, 0, ((i % 2) ? 192 : 64) + t * i);
-    SEGMENT.addPixelColorXY(x, y, SEGMENT.color_from_palette(i * 32, false, PALETTE_SOLID_WRAP, SEGMENT.check1 ? 0 : 255));
+  if (percent <= 100) {
+    for (unsigned i = 0; i < SEGLEN; i++) {
+    	if (i < SEGENV.aux1) {
+        if (SEGMENT.check1)
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,0,100,0,255), false, false, 0));
+        else
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
+    	}
+    	else {
+        SEGMENT.setPixelColor(i, SEGCOLOR(1));
+    	}
+    }
+  } else {
+    for (unsigned i = 0; i < SEGLEN; i++) {
+    	if (i < (SEGLEN - SEGENV.aux1)) {
+        SEGMENT.setPixelColor(i, SEGCOLOR(1));
+    	}
+    	else {
+        if (SEGMENT.check1)
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,100,200,255,0), false, false, 0));
+        else
+          SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
+    	}
+    }
   }
 
-  // photons (inner circle)
-  for (size_t i = 0; i < 4; i++) {
-    x = beatsin8(SEGMENT.custom2 >> 3, cols / 4, cols - 1 - cols / 4, 0, ((i % 2) ? 128 : 0) + t * i);
-    y = beatsin8(SEGMENT.custom3, rows / 4, rows - 1 - rows / 4, 0, ((i % 2) ? 192 : 64) + t * i);
-    SEGMENT.addPixelColorXY(x, y, SEGMENT.color_from_palette(255 - i * 64, false, PALETTE_SOLID_WRAP, SEGMENT.check1 ? 0 : 255));
+  if(active_leds > SEGENV.aux1) {  // smooth transition to the target value
+    SEGENV.aux1 += size;
+    if (SEGENV.aux1 > active_leds) SEGENV.aux1 = active_leds;
+  } else if (active_leds < SEGENV.aux1) {
+    if (SEGENV.aux1 > size) SEGENV.aux1 -= size; else SEGENV.aux1 = 0;
+    if (SEGENV.aux1 < active_leds) SEGENV.aux1 = active_leds;
   }
 
-  // central white dot
-  SEGMENT.setPixelColorXY(cols / 2, rows / 2, WHITE);
-  // blur everything a bit
-  if (SEGMENT.check3) SEGMENT.blur(16, cols * rows < 100);
-  return FRAMETIME;
+ 	return FRAMETIME;
 }
+static const char _data_FX_MODE_PERCENT[] PROGMEM = "SpiralDos@,% of fill,,,,One color;!,!;!";
 
-static const char _data_FX_MODE_SPIRAL[] PROGMEM = "SpiralDos@!,!;;!";
 
 //////////////////////
 // *    WIPE OUT    //
