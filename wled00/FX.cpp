@@ -338,14 +338,14 @@ uint16_t mode_spiral(void) {
   unsigned size = (1 + ((SEGMENT.speed * SEGLEN) >> 11));
   if (SEGMENT.speed == 255) size = 255;
 
-  if (percent <= 100) {
+  if (percent <= 512) {
     for (unsigned i = 0; i < SEGLEN; i++) {
     	if (i < SEGENV.aux1) {
         if (SEGMENT.check1)
           SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(map(percent,0,100,0,255), false, false, 0));
         else
           SEGMENT.setPixelColor(i, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0));
-    	}
+    	                    }
     	else {
         SEGMENT.setPixelColor(i, SEGCOLOR(1));
     	}
