@@ -1,7 +1,7 @@
 #pragma once
 
 #include "wled.h"
-#include <AHT1x.h>
+#include <AHTxx.h>
 
 #define AHT10_SUCCESS 1
 
