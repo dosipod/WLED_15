@@ -19,8 +19,8 @@ private:
   bool _initDone : 1;          // Initialization is done
 
   // Settings. Some of these are stored in a different format than they're user settings - so we don't have to convert at runtime
-  uint8_t _i2cAddress = AHT10_ADDRESS_0X38;
-  ASAIR_I2C_SENSOR _ahtType = AHT10_SENSOR;
+  uint8_t _i2cAddress = AHTXX_ADDRESS_0X38;
+  ASAIR_I2C_SENSOR _ahtType = AHTXX_SENSOR;
   uint16_t _checkInterval = 60000; // milliseconds, user settings is in seconds
   float _decimalFactor = 100;      // a power of 10 factor. 1 would be no change, 10 is one decimal, 100 is two etc. User sees a power of 10 (0, 1, 2, ..)
 
@@ -47,7 +47,7 @@ private:
       delete _aht;
     }
 
-    _aht = new AHT10(_i2cAddress, _ahtType);
+    _aht = new AHTXX(_i2cAddress, _ahtType);
 
     _lastStatus = 0;
     _lastHumidity = 0;
