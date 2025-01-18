@@ -33,7 +33,7 @@ private:
   float _lastTemperatureSent = 0;
 #endif
 
-  AHT10 *_aht = nullptr;
+  AHTXX *_aht = nullptr;
 
   float truncateDecimals(float val)
   {
@@ -143,7 +143,7 @@ public:
 
     _lastStatus = _aht->readRawData();
 
-    if (_lastStatus == AHT10_ERROR)
+    if (_lastStatus == AHTXX_ERROR)
     {
       // Perform softReset and retry
       DEBUG_PRINTLN(F("AHTxx returned error, doing softReset"));
