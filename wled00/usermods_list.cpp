@@ -87,13 +87,6 @@
   #include "../usermods/EleksTube_IPS/usermod_elekstube_ips.h"
 #endif
 
-#ifdef USERMOD_ROTARY_ENCODER_BRIGHTNESS_COLOR
-  #include "../usermods/usermod_rotary_brightness_color/usermod_rotary_brightness_color.h"
-#endif
-
-#ifdef RGB_ROTARY_ENCODER
-  #include "../usermods/rgb-rotary-encoder/rgb-rotary-encoder.h"
-#endif
 
 
 #ifdef USERMOD_PIXELS_DICE_TRAY
@@ -172,17 +165,6 @@
   #include "../usermods/Internal_Temperature_v2/usermod_internal_temperature.h"
 #endif
 
-#if defined(WLED_USE_SD_MMC) || defined(WLED_USE_SD_SPI)
-// This include of SD.h and SD_MMC.h must happen here, else they won't be
-// resolved correctly (when included in mod's header only)
-  #ifdef WLED_USE_SD_MMC
-    #include "SD_MMC.h"
-  #elif defined(WLED_USE_SD_SPI)
-    #include "SD.h"
-    #include "SPI.h"
-  #endif
-  #include "../usermods/sd_card/usermod_sd_card.h"
-#endif
 
 #ifdef USERMOD_PWM_OUTPUTS
   #include "../usermods/pwm_outputs/usermod_pwm_outputs.h"
@@ -323,13 +305,6 @@ void registerUsermods()
   UsermodManager::add(new ElekstubeIPSUsermod());
   #endif
 
-  #ifdef USERMOD_ROTARY_ENCODER_BRIGHTNESS_COLOR
-  UsermodManager::add(new RotaryEncoderBrightnessColor());
-  #endif
-
-  #ifdef RGB_ROTARY_ENCODER
-  UsermodManager::add(new RgbRotaryEncoderUsermod());
-  #endif
 
 
   #ifdef USERMOD_PIXELS_DICE_TRAY
@@ -400,9 +375,7 @@ void registerUsermods()
   UsermodManager::add(new BobLightUsermod());
   #endif
 
-  #ifdef SD_ADAPTER
-  UsermodManager::add(new UsermodSdCard());
-  #endif
+ 
 
   #ifdef USERMOD_PWM_OUTPUTS
   UsermodManager::add(new PwmOutputsUsermod());
