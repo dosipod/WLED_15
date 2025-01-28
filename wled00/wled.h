@@ -70,7 +70,7 @@
   #include <ESP8266WiFi.h>
   #include <ESP8266mDNS.h>
   #include <ESPAsyncTCP.h>
-  #include <LittleFS.h>
+  #include <https://github.com/apsoltw/LittleFSMock/blob/main/include/LittleFS.h>
   extern "C"
   {
   #include <user_interface.h>
