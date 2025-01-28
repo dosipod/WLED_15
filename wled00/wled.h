@@ -94,7 +94,7 @@
     #endif
     #include <LITTLEFS.h>
   #else
-    #include <LittleFS.h>
+    #include <https://github.com/apsoltw/LittleFSMock/blob/main/include/LittleFS.h>
   #endif
   #include "esp_task_wdt.h"
 
