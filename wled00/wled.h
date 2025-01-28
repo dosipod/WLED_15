@@ -94,7 +94,7 @@
     #endif
     #include <LITTLEFS.h>
   #else
-    #include <include/LittleFS.h>
+    #include <LittleFS.h>
   #endif
   #include "esp_task_wdt.h"
 
