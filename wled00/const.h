@@ -205,7 +205,7 @@
 #define USERMOD_ID_PIXELS_DICE_TRAY      54     //Usermod "pixels_dice_tray.h"
 #define USERMOD_ID_DEEP_SLEEP            55     //Usermod "usermod_deep_sleep.h"
 #define USERMOD_ID_RF433                 56     //Usermod "usermod_v2_RF433.h"
-//#define USERMOD_TTGO_TDISPLAY_OUTPUT     57     //Usermod "usermod.h"
+#define USERMOD_TTGO_TDISPLAY_OUTPUT     57     //Usermod "usermod.h"
 
 
 //Access point behavior
