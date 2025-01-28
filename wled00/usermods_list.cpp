@@ -58,13 +58,6 @@
 #endif
 
 
-#ifdef USERMOD_FOUR_LINE_DISPLAY
-  #include "../usermods/usermod_v2_four_line_display_ALT/usermod_v2_four_line_display_ALT.h"
-#endif
-
-#ifdef USERMOD_ROTARY_ENCODER_UI
-  #include "../usermods/usermod_v2_rotary_encoder_ui_ALT/usermod_v2_rotary_encoder_ui_ALT.h"
-#endif
 
 #ifdef USERMOD_AUTO_SAVE
   #include "../usermods/usermod_v2_auto_save/usermod_v2_auto_save.h"
@@ -102,9 +95,6 @@
   #include "../usermods/rgb-rotary-encoder/rgb-rotary-encoder.h"
 #endif
 
-#ifdef USERMOD_ST7789_DISPLAY
-  #include "../usermods/ST7789_display/ST7789_Display.h"
-#endif
 
 #ifdef USERMOD_PIXELS_DICE_TRAY
   #include "../usermods/pixels_dice_tray/pixels_dice_tray.h"
@@ -304,13 +294,6 @@ void registerUsermods()
   UsermodManager::add(new PIRsensorSwitch());
   #endif
 
-  #ifdef USERMOD_FOUR_LINE_DISPLAY
-  UsermodManager::add(new FourLineDisplayUsermod());
-  #endif
-
-  #ifdef USERMOD_ROTARY_ENCODER_UI
-  UsermodManager::add(new RotaryEncoderUIUsermod()); // can use USERMOD_FOUR_LINE_DISPLAY
-  #endif
 
   #ifdef USERMOD_AUTO_SAVE
   UsermodManager::add(new AutoSaveUsermod());  // can use USERMOD_FOUR_LINE_DISPLAY
@@ -348,9 +331,6 @@ void registerUsermods()
   UsermodManager::add(new RgbRotaryEncoderUsermod());
   #endif
 
-  #ifdef USERMOD_ST7789_DISPLAY
-  UsermodManager::add(new St7789DisplayUsermod());
-  #endif
 
   #ifdef USERMOD_PIXELS_DICE_TRAY
     UsermodManager::add(new PixelsDiceTrayUsermod());
