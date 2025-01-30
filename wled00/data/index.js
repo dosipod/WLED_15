@@ -34,12 +34,12 @@ var cfg = {
 };
 // [year, month (0 -> January, 11 -> December), day, duration in days, image url]
 var hol = [
-	[0, 11, 24, 4, "https://aircoookie.github.io/xmas.png"],		// christmas
-	[0, 2, 17, 1, "https://images.alphacoders.com/491/491123.jpg"], // st. Patrick's day
-	[2025, 3, 20, 2, "https://aircoookie.github.io/easter.png"],	// easter 2025
-	[2024, 2, 31, 2, "https://aircoookie.github.io/easter.png"],	// easter 2024
-	[0, 6, 4, 1, "https://images.alphacoders.com/516/516792.jpg"],	// 4th of July
-	[0, 0, 1, 1, "https://images.alphacoders.com/119/1198800.jpg"]	// new year
+	[0, 11, 24, 4, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion1.JPG"],		// christmas
+	[0, 2, 17, 1, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion2.JPG"], // st. Patrick's day
+	[2025, 3, 20, 2, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion3.JPG"],	// easter 2025
+	[2024, 2, 31, 2, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion4.JPG"],	// easter 2024
+	[0, 6, 4, 1, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion5.JPG"],	// 4th of July
+	[0, 0, 1, 1, "https://raw.githubusercontent.com/dosipod/WLED-Ledmap-Generator/refs/heads/master/pics/No_religion6.JPG"]	// new year
 ];
 
 var cpick = new iro.ColorPicker("#picker", {
