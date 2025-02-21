@@ -210,7 +210,7 @@ bool PinManager::isPinOk(byte gpio, bool output)
   #elif defined(CONFIG_IDF_TARGET_ESP32S3)
     // 00 to 18 are for general use. Be careful about straping pins GPIO0 and GPIO3 - these may be pulled-up or pulled-down on your board.
     #if ARDUINO_USB_CDC_ON_BOOT == 1 || ARDUINO_USB_DFU_ON_BOOT == 1
-    if (gpio > 18 && gpio < 21) return false;     // 19 + 20 = USB-JTAG. Not recommended for other uses.
+    if (gpio > 48 && gpio < 52) return false;     // 19 + 20 = USB-JTAG. Not recommended for other uses.
     #endif
     if (gpio > 21 && gpio < 33) return false;     // 22 to 32: not connected + SPI FLASH
     #if CONFIG_ESPTOOLPY_FLASHMODE_OPI            // 33-37: never available if using _octal_ Flash (opi_opi)
