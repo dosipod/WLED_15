@@ -557,7 +557,7 @@ void FourLineDisplayUsermod::setup() {
     case SSD1306:       u8x8 = (U8X8 *) new U8X8_SSD1306_128X32_UNIVISION_HW_I2C(); break;
     //case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_128X64_WINSTAR_HW_I2C();    break;
     // aldiy for sh1106_72x40
-    case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_72X40_WISE_HW_I2CC();    break;
+    case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_72X40_WISE_HW_I2C();    break;
     case SSD1306_64:    u8x8 = (U8X8 *) new U8X8_SSD1306_128X64_NONAME_HW_I2C();    break;
     case SSD1305:       u8x8 = (U8X8 *) new U8X8_SSD1305_128X32_ADAFRUIT_HW_I2C();  break;
     case SSD1305_64:    u8x8 = (U8X8 *) new U8X8_SSD1305_128X64_ADAFRUIT_HW_I2C();  break;
