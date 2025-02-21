@@ -83,7 +83,9 @@ void DisplayTaskCode(void * parameter);
 typedef enum {
   NONE = 0,
   SSD1306,          // U8X8_SSD1306_128X32_UNIVISION_HW_I2C
-  SH1106,           // U8X8_SH1106_128X64_WINSTAR_HW_I2C
+  //SH1106,           // U8X8_SH1106_128X64_WINSTAR_HW_I2C
+  // ALDIY ADDED U8X8_SH1106_72X40_WISE_HW_I2C from  https://github.com/olikraus/u8g2/blob/master/cppsrc/U8x8lib.h
+  SH1106,           // ALDIY ADDED U8X8_SH1106_72X40_WISE_HW_I2C 
   SSD1306_64,       // U8X8_SSD1306_128X64_NONAME_HW_I2C
   SSD1305,          // U8X8_SSD1305_128X32_ADAFRUIT_HW_I2C
   SSD1305_64,       // U8X8_SSD1305_128X64_ADAFRUIT_HW_I2C
@@ -553,7 +555,9 @@ void FourLineDisplayUsermod::setup() {
   switch (type) {
     // U8X8 uses Wire (or Wire1 with 2ND constructor) and will use existing Wire properties (calls Wire.begin() though)
     case SSD1306:       u8x8 = (U8X8 *) new U8X8_SSD1306_128X32_UNIVISION_HW_I2C(); break;
-    case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_128X64_WINSTAR_HW_I2C();    break;
+    //case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_128X64_WINSTAR_HW_I2C();    break;
+    // aldiy for sh1106_72x40
+    case SH1106:        u8x8 = (U8X8 *) new U8X8_SH1106_72X40_WISE_HW_I2CC();    break;
     case SSD1306_64:    u8x8 = (U8X8 *) new U8X8_SSD1306_128X64_NONAME_HW_I2C();    break;
     case SSD1305:       u8x8 = (U8X8 *) new U8X8_SSD1305_128X32_ADAFRUIT_HW_I2C();  break;
     case SSD1305_64:    u8x8 = (U8X8 *) new U8X8_SSD1305_128X64_ADAFRUIT_HW_I2C();  break;
@@ -1335,10 +1339,19 @@ bool FourLineDisplayUsermod::readFromConfig(JsonObject& root) {
           u8x8_Setup(u8x8->getU8x8(), u8x8_d_ssd1306_128x32_univision, u8x8_cad_ssd13xx_fast_i2c, u8x8_byte_arduino_hw_i2c, u8x8_gpio_and_delay_arduino);
           u8x8_SetPin_HW_I2C(u8x8->getU8x8(), U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
           break;
-        case SH1106:
+        /*
+          case SH1106:
           u8x8_Setup(u8x8->getU8x8(), u8x8_d_sh1106_128x64_winstar, u8x8_cad_ssd13xx_fast_i2c, u8x8_byte_arduino_hw_i2c, u8x8_gpio_and_delay_arduino);
           u8x8_SetPin_HW_I2C(u8x8->getU8x8(), U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
           break;
+        */
+        // aldiy for  
+        case SH1106:
+          u8x8_Setup(u8x8->getU8x8(), u8x8_d_sh1106_72x40_wise, u8x8_cad_ssd13xx_fast_i2c, u8x8_byte_arduino_hw_i2c, u8x8_gpio_and_delay_arduino);
+          u8x8_SetPin_HW_I2C(u8x8->getU8x8(), U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+          break;
+
+        
         case SSD1306_64:
           u8x8_Setup(u8x8->getU8x8(), u8x8_d_ssd1306_128x64_noname, u8x8_cad_ssd13xx_fast_i2c, u8x8_byte_arduino_hw_i2c, u8x8_gpio_and_delay_arduino);
           u8x8_SetPin_HW_I2C(u8x8->getU8x8(), U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
