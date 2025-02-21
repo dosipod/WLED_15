@@ -222,7 +222,7 @@ bool PinManager::isPinOk(byte gpio, bool output)
     // 38 to 48 are for general use. Be careful about straping pins GPIO45 and GPIO46 - these may be pull-up or pulled-down on your board.
   #elif defined(CONFIG_IDF_TARGET_ESP32S2)
     // strapping pins: 0, 45 & 46
-    if (gpio > 21 && gpio < 33) return false;     // 22 to 32: not connected + SPI FLASH
+    if (gpio > 21 && gpio < 33) return true;     // 22 to 32: not connected + SPI FLASH
     // JTAG: GPIO39-42 are usually used for inline debugging
     // GPIO46 is input only and pulled down
   #else
