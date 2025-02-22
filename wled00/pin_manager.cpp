@@ -298,7 +298,7 @@ byte PinManager::allocateLedc(byte channels)
 void PinManager::deallocateLedc(byte pos, byte channels)
 {
   for (unsigned j = pos; j < pos + channels && j < WLED_MAX_ANALOG_CHANNELS; j++) {
-    bitWrite(ledcAlloc, j, false);
+    bitWrite(ledcAlloc, j, true);
   }
 }
 #endif
