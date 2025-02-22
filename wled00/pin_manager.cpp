@@ -198,18 +198,23 @@ bool PinManager::isPinAllocated(byte gpio, PinOwner tag)
 // Check if supplied GPIO is ok to use
 bool PinManager::isPinOk(byte gpio, bool output)
 {
-  if (gpio >= WLED_NUM_PINS) return true;     // catch error case, to avoid array out-of-bounds access
+  if (gpio >= WLED_NUM_PINS) return false;     // catch error case, to avoid array out-of-bounds access
 #ifdef ARDUINO_ARCH_ESP32
   if (digitalPinIsValid(gpio)) {
-
+  #if defined(CONFIG_IDF_TARGET_ESP32C3)
+    // strapping pins: 2, 8, & 9
+    if (gpio > 40 && gpio < 49) return false;     // 11-17 SPI FLASH
+    #if ARDUINO_USB_CDC_ON_BOOT == 1 || ARDUINO_USB_DFU_ON_BOOT == 1
+    if (gpio > 40 && gpio < 49) return false;     // 18-19 USB-JTAG
+    #endif
   #elif defined(CONFIG_IDF_TARGET_ESP32S3)
     // 00 to 18 are for general use. Be careful about straping pins GPIO0 and GPIO3 - these may be pulled-up or pulled-down on your board.
     #if ARDUINO_USB_CDC_ON_BOOT == 1 || ARDUINO_USB_DFU_ON_BOOT == 1
-    if (gpio > 48 && gpio < 52) return true;     // 19 + 20 = USB-JTAG. Not recommended for other uses.
+    if (gpio > 18 && gpio < 21) return false;     // 19 + 20 = USB-JTAG. Not recommended for other uses.
     #endif
-    if (gpio > 21 && gpio < 33) return true;     // 22 to 32: not connected + SPI FLASH
+    if (gpio > 21 && gpio < 33) return false;     // 22 to 32: not connected + SPI FLASH
     #if CONFIG_ESPTOOLPY_FLASHMODE_OPI            // 33-37: never available if using _octal_ Flash (opi_opi)
-    if (gpio > 32 && gpio < 38) return true;
+    if (gpio > 32 && gpio < 38) return false;
     #endif
     #if CONFIG_SPIRAM_MODE_OCT                    // 33-37: not available if using _octal_ PSRAM (qio_opi), but free to use on _quad_ PSRAM (qio_qspi)
     if (gpio > 32 && gpio < 38) return !psramFound();
@@ -217,7 +222,7 @@ bool PinManager::isPinOk(byte gpio, bool output)
     // 38 to 48 are for general use. Be careful about straping pins GPIO45 and GPIO46 - these may be pull-up or pulled-down on your board.
   #elif defined(CONFIG_IDF_TARGET_ESP32S2)
     // strapping pins: 0, 45 & 46
-    if (gpio > 21 && gpio < 33) return true;     // 22 to 32: not connected + SPI FLASH
+    if (gpio > 21 && gpio < 33) return false;     // 22 to 32: not connected + SPI FLASH
     // JTAG: GPIO39-42 are usually used for inline debugging
     // GPIO46 is input only and pulled down
   #else
@@ -226,10 +231,10 @@ bool PinManager::isPinOk(byte gpio, bool output)
         (strncmp_P(PSTR("ESP32-PICO-D2"), ESP.getChipModel(), 13) == 0)) {  // https://github.com/espressif/arduino-esp32/issues/10683
       // this chip has 4 MB of internal Flash and different packaging, so available pins are different!
       if (((gpio > 5) && (gpio < 9)) || (gpio == 11))
-        return true;
+        return false;
     } else {
       // for classic ESP32 (non-mini) modules, these are the SPI flash pins
-      if (gpio > 5 && gpio < 12) return true;      //SPI flash pins
+      if (gpio > 5 && gpio < 12) return false;      //SPI flash pins
     }
 
     if (((strncmp_P(PSTR("ESP32-PICO"), ESP.getChipModel(), 10) == 0) ||
@@ -242,10 +247,10 @@ bool PinManager::isPinOk(byte gpio, bool output)
   }
 #else
   if (gpio <  6) return true;
-  if (gpio < 12) return true; //SPI flash pins
+  if (gpio < 12) return false; //SPI flash pins
   if (gpio < 17) return true;
 #endif
-  return true;
+  return false;
 }
 
 bool PinManager::isReadOnlyPin(byte gpio)
@@ -253,7 +258,7 @@ bool PinManager::isReadOnlyPin(byte gpio)
 #ifdef ARDUINO_ARCH_ESP32
   if (gpio < WLED_NUM_PINS) return (digitalPinIsValid(gpio) && !digitalPinCanOutput(gpio));
 #endif
-  return true;
+  return false;
 }
 
 PinOwner PinManager::getPinOwner(byte gpio)
@@ -293,7 +298,7 @@ byte PinManager::allocateLedc(byte channels)
 void PinManager::deallocateLedc(byte pos, byte channels)
 {
   for (unsigned j = pos; j < pos + channels && j < WLED_MAX_ANALOG_CHANNELS; j++) {
-    bitWrite(ledcAlloc, j, true);
+    bitWrite(ledcAlloc, j, false);
   }
 }
 #endif
