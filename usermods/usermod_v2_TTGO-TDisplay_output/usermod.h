@@ -121,10 +121,10 @@ class TTGOTDisplayOutputUsermod : public Usermod {
       {
         tft.setTextSize(textSize);
         if(textSize==1) break;
-        if(tft.textWidth(F("WLED - DisplayMatrix"))<=tft.width()) break;
+        if(tft.textWidth(F("ALDIY - TTGO_DISPLAY"))<=tft.width()) break;
         textSize--;        
       }
-      tft.drawString(F("WLED - DisplayMatrix"), tft.width()/2, tft.height()/2);
+      tft.drawString(F("DAHOM - TTGO_DISPLAY"), tft.width()/2, tft.height()/2);
     }
 
     void setupBrightnessControl(){
