@@ -502,6 +502,6 @@ void registerUsermods()
   #endif
 
   #ifdef PIXELART_CLIENT_ENABLED
-  usermods.add(new PixelArtClient());
+  UsermodManager::add(new PixelArtClient());
   #endif
 }
