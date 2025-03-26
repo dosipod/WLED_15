@@ -255,6 +255,11 @@
 #endif
 
 
+#ifdef PIXELART_CLIENT_ENABLED
+#include <HTTPClient.h>
+#include "../usermods/pixelart_client/usermod_pixelart_client.cpp"
+#endif
+
 void registerUsermods()
 {
 /*
@@ -495,5 +500,8 @@ void registerUsermods()
   #ifdef USERMOD_TTGO_TDISPLAY_OUTPUT
   UsermodManager::add(new TTGOTDisplayOutputUsermod());
   #endif
-  
+
+  #ifdef PIXELART_CLIENT_ENABLED
+  usermods.add(new PixelArtClient());
+  #endif
 }
