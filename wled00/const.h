@@ -558,7 +558,7 @@
   #if defined(ARDUINO_ARCH_ESP32S2)
     #define JSON_BUFFER_SIZE 24576
   #else
-    #define JSON_BUFFER_SIZE 32767
+    #define JSON_BUFFER_SIZE 50000
   #endif
 #endif
 
