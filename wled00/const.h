@@ -490,7 +490,7 @@
     #if defined(ARDUINO_ARCH_ESP32S2) || defined(ARDUINO_ARCH_ESP32C3)
       #define MAX_LED_MEMORY 32000
     #else
-      #define MAX_LED_MEMORY 64000
+      #define MAX_LED_MEMORY 84000
     #endif
   #endif
 #endif
